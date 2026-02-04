@@ -1,0 +1,143 @@
+{
+  "input": {
+    "workflow": {
+      "1": {
+        "inputs": {
+          "ckpt_name": "Qwen/Qwen-Rapid-AIO-v1.safetensors"
+        },
+        "class_type": "CheckpointLoaderSimple",
+        "_meta": {
+          "title": "CheckpointLoaderSimple"
+        }
+      },
+      "2": {
+        "inputs": {
+          "seed": 0,
+          "steps": 4,
+          "cfg": 1,
+          "sampler_name": "sa_solver",
+          "scheduler": "beta",
+          "denoise": 1,
+          "model": [
+            "1",
+            0
+          ],
+          "positive": [
+            "3",
+            0
+          ],
+          "negative": [
+            "4",
+            0
+          ],
+          "latent_image": [
+            "9",
+            0
+          ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "KSampler"
+        }
+      },
+      "3": {
+        "inputs": {
+          "filename": "Put the woman holding a balloon next to the ninja in the hallway.",
+          "clip": [
+            "1",
+            1
+          ],
+          "vae": [
+            "1",
+            2
+          ],
+          "image1": [
+            "7",
+            0
+          ],
+          "image2": [
+            "8",
+            0
+          ]
+        },
+        "class_type": "TextEncodeQwenImageEditPlus",
+        "_meta": {
+          "title": "TextEncodeQwenImageEditPlus Input Prompt"
+        }
+      },
+      "4": {
+        "inputs": {
+          "text": "",
+          "clip": [
+            "1",
+            1
+          ],
+          "vae": [
+            "1",
+            2
+          ]
+        },
+        "class_type": "TextEncodeQwenImageEditPlus",
+        "_meta": {
+          "title": "TextEncodeQwenImageEditPlus Negative (leave blank)"
+        }
+      },
+      "5": {
+        "inputs": {
+          "samples": [
+            "2",
+            0
+          ],
+          "vae": [
+            "1",
+            2
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "6": {
+        "inputs": {
+          "filename_prefix": "qwen_output",
+          "images": [
+            "5",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "SaveImage"
+        }
+      },
+      "7": {
+        "inputs": {
+          "image": "input_image_1.png"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "Optional Input Image"
+        }
+      },
+      "8": {
+        "inputs": {
+          "image": "input_image_2.png"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "Optional Input Image"
+        }
+      },
+      "9": {
+        "inputs": {
+          "value": 768
+        },
+        "class_type": "EmptyLatentImage",
+        "_meta": {
+          "title": "Final Image Size"
+        }
+      }
+    }
+  }
+}
